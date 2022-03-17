@@ -28,5 +28,5 @@ def thanks_page(request):
     name = request.POST['name']
     phone = request.POST['phone']
     element = Order.objects.create(order_name=name, order_phone=phone)
-    sendTelegram()
+    sendTelegram(tg_name = name, tg_phone = phone)
     return render(request, './thanks.html', {'name': name})
