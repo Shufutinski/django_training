@@ -25,8 +25,11 @@ def first_page(request):
 
 
 def thanks_page(request):
-    name = request.POST['name']
-    phone = request.POST['phone']
-    element = Order.objects.create(order_name=name, order_phone=phone)
-    sendTelegram(tg_name = name, tg_phone = phone)
-    return render(request, './thanks.html', {'name': name})
+    if request.POST:
+        name = request.POST['name']
+        phone = request.POST['phone']
+        element = Order.objects.create(order_name=name, order_phone=phone)
+        sendTelegram(tg_name = name, tg_phone = phone)
+        return render(request, './thanks.html', {'name': name})
+    else:
+        return render(request, './thanks.html')
